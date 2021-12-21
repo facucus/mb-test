@@ -15,6 +15,7 @@
     "@types/react-modal": "^3.13.1",
     "@types/uuid": "^8.3.3",
     "axios": "^0.24.0",
+    "jest-styled-components": "^7.0.8",
     "moment": "^2.29.1",
     "query-string": "^7.0.1",
     "random-words": "^1.1.1",

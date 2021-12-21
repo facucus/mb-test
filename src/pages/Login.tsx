@@ -6,7 +6,7 @@ import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
-import FacebookLogin from "react-facebook-login";
+import FacebookLogin, { ReactFacebookLoginInfo } from "react-facebook-login";
 
 import { CardStyle } from "../components/Card";
 import { AppDispatch, login, userLoginSuccess } from "../store/actions/login";
@@ -45,6 +45,10 @@ export const Main = styled.div`
   padding-top: 10%;
 `
 
+const FacebookStyle = styled(FacebookLogin)`
+  padding: 8px;
+`;
+
 const Login: React.FunctionComponent<{}> = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("");
@@ -66,6 +70,7 @@ const Login: React.FunctionComponent<{}> = () => {
   const responseGoogle = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
+    console.log(`response`, response)
     if ("profileObj" in response) {
       const { givenName, imageUrl } = response.profileObj;
       dispatch(
@@ -79,15 +84,17 @@ const Login: React.FunctionComponent<{}> = () => {
     
   };
 
-  const responseFacebook = (response: any) => {
+  const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response);
-    dispatch(
-      userLoginSuccess({
-        username: response.name,
-        photoUrl: response.picture.data.url,
-      })
-    );
-    navigate("/");
+    if (response.name && response.picture) {
+      dispatch(
+        userLoginSuccess({
+          username: response.name,
+          photoUrl: response.picture.data.url,
+        })
+      );
+      navigate("/");
+    }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -128,33 +135,35 @@ const Login: React.FunctionComponent<{}> = () => {
             </label>
             <Button onClick={onSubmit}>Sign in</Button>
           </div>
-          <div>
-            {process.env.REACT_APP_FACEBOOK_ID && <FacebookLogin
+        </FormStyle>
+        <div>
+          {process.env.REACT_APP_FACEBOOK_ID && (
+            <FacebookStyle
               appId={process.env.REACT_APP_FACEBOOK_ID}
               autoLoad={true}
               fields="name,email,picture"
               scope="public_profile,email,user_friends"
               callback={responseFacebook}
               icon="fa-facebook"
-            />}
-            {process.env.REACT_APP_GOOGLE_CLIENT_ID && <GoogleLogin
+            />
+          )}
+          {process.env.REACT_APP_GOOGLE_CLIENT_ID && (
+            <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
               buttonText="Login"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
               responseType="code,token"
-            />}
-            <Button variant="secondary" onClick={() => navigate("/signup")}>
-              Sign up
-            </Button>
-          </div>
-        </FormStyle>
+            />
+          )}
+          <Button variant="secondary" onClick={() => navigate("/signup")}>
+            Sign up
+          </Button>
+        </div>
       </CardStyle>
     </Main>
   );
 };
 
 export default Login;
-
-//254954179909924
