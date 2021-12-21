@@ -32,7 +32,7 @@ const Spinner: React.FunctionComponent<SpinnerProps> = ({show}) => {
   if(!show) return null;
   return (
     <Container>
-      <Loader />
+      <Loader data-testid="loader"/>
     </Container>
   );
 };

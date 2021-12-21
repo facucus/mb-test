@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { likePost } from "../store/actions/posts";
-import { formatDate } from "../utils/formatDate";
+import { likePost } from "../../store/actions/posts";
+import { formatDate } from "../../utils/formatDate";
 
 interface CardStylesProps {
   readonly padding?: string;
@@ -89,6 +89,7 @@ const Card: React.FunctionComponent<ICardProps> = ({
           <div className="like-container">
             <label>
               <input
+                data-testid="likedPost"
                 onChange={handleLike}
                 type="checkbox"
                 checked={likedPost}
