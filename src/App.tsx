@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { useDispatch } from "react-redux";
+
+import { GlobalStyles } from "./utils/GlobalStyles";
+import { lightTheme, darkTheme } from "./utils/themes";
+import { useDarkMode } from "./hooks/useDarkMode";
+import Main from "./pages/Main";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Navbar from "./components/Navbar";
+import RequireAuth from "./components/RequireAuth";
+import * as storage from "./utils/storage";
+import { userLoginSuccess } from "./store/actions/login";
+
 
 function App() {
+  const [theme, themeToggler] = useDarkMode();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const themeMode = theme === "light" ? lightTheme : darkTheme;
+
+  useEffect(() => {
+    const auth = storage.get("is-authenticated");
+
+    if (auth?.isAuthenticated) {
+      dispatch(
+        userLoginSuccess({
+          username: auth.username,
+          photoUrl: auth.photoUrl,
+        })
+      );
+      navigate("/");
+    }
+  }, [dispatch, navigate]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={themeMode}>
+      <GlobalStyles />
+      <div>
+        <Navbar themeToToggle={theme === "light" ? "Dark" : "Light"} onThemeToggler={themeToggler} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <Main />
+              </RequireAuth>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 
 export default App;
+
+
