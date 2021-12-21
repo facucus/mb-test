@@ -81,6 +81,13 @@ const Login: React.FunctionComponent<{}> = () => {
 
   const responseFacebook = (response: any) => {
     console.log(response);
+    dispatch(
+      userLoginSuccess({
+        username: response.name,
+        photoUrl: response.picture.data.url,
+      })
+    );
+    navigate("/");
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
