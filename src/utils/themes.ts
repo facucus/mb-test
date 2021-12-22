@@ -22,6 +22,8 @@ export type ThemeType = {
   navbarBg: string;
   navbarBorder: string;
   navbarColor: string;
+  menuBg: string;
+  menuBorder: string;
 };
 
 export const lightTheme: ThemeType = {
@@ -47,6 +49,8 @@ export const lightTheme: ThemeType = {
   navbarBg: "#79B4B7",
   navbarBorder: "1px solid #171010",
   navbarColor: "#FFF",
+  menuBg: "#79B4B7",
+  menuBorder: "#FFF"
 };
 
 export const darkTheme: ThemeType = {
@@ -72,4 +76,6 @@ export const darkTheme: ThemeType = {
   navbarBg: "#423F3E",
   navbarBorder: "1px solid #FFF",
   navbarColor: "#FFF",
+  menuBg: "#423F3E",
+  menuBorder: "#FFF",
 };

@@ -8,7 +8,7 @@ import { AppState } from "../../store/reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { clearPosts, getPosts } from "../../store/actions/posts";
 import CreatePost from "../CreatePost";
-
+import * as storage from "../../utils/storage"
 interface NavbarPros {
   themeToToggle: string;
   onThemeToggler: any;
@@ -24,6 +24,7 @@ const NavbarStyle = styled.nav`
   color: ${({theme}) => theme.navbarColor};
 
   .user-info {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -37,13 +38,17 @@ const NavbarStyle = styled.nav`
   }
 `;
 
+
 const Navbar: React.FunctionComponent<NavbarPros> = ({
   themeToToggle,
   onThemeToggler,
 }) => {
   const [search, setSearch] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
   const loginData = useSelector((state: AppState) => state.login);
   const dispatch = useDispatch();
+  const theme = storage.get("theme");
+
 
   const handleSearch = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -59,8 +64,8 @@ const Navbar: React.FunctionComponent<NavbarPros> = ({
 
   return (
     <NavbarStyle data-testid="navbar">
+      <CreatePost theme={theme}/>
       <Toggle toggleTheme={onThemeToggler} themeToToggle={themeToToggle} />
-      <CreatePost />
       <div>
         <div className="user-info">
           <img src={loginData.photoUrl || defaultUserImg} alt="user profile" />{" "}

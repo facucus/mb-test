@@ -10,6 +10,10 @@ export const set = (key: string, value: Object) => {
 export const get = (key: string) => {
   try {
     const item: string | null = window.localStorage.getItem(key);
+    
+    if(key === "theme") {
+      return item
+    }
     if (item) {
       return JSON.parse(item);
     } 

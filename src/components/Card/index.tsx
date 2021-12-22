@@ -26,7 +26,7 @@ export const CardStyle = styled.div<CardStylesProps>`
   max-width: 640px;
   padding: ${(props) => (props.padding ? props.padding : "0px")};
 
-  .img-container {
+  .container {
     position: relative;
     img {
       width: 100%;
@@ -36,7 +36,7 @@ export const CardStyle = styled.div<CardStylesProps>`
 
     .like-container {
       position: absolute;
-      bottom: 3px;
+      bottom: 0;
       right: 0;
       z-index: 10;
       background-color: ${({ theme }) => theme.body};
@@ -67,6 +67,15 @@ export const CardStyle = styled.div<CardStylesProps>`
 `;
 
 
+const ImageContainer = styled.div<{ src: string }>`
+  border-radius: 15px 15px 0 0;
+  height: 350px;
+  background-image: ${({ src }) => `url(${src})`};
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
 const Card: React.FunctionComponent<ICardProps> = ({
   id,
   imageUrl,
@@ -84,8 +93,9 @@ const Card: React.FunctionComponent<ICardProps> = ({
   return (
     <CardStyle ref={myref ? myref : null} padding={padding}>
       <div>
-        <div className="img-container">
-          <img src={imageUrl} alt="post pic" />
+        <div className="container">
+          <ImageContainer src={imageUrl} />
+          {/* <img src={imageUrl} alt="post pic" /> */}
           <div className="like-container">
             <label>
               <input

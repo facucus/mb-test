@@ -13,6 +13,8 @@ import { AppDispatch, login, userLoginSuccess } from "../store/actions/login";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
+import "./social-buttons.css";
+
 export const MainTitle = styled.h1`
   color: ${({ theme }) => theme.titleColor};
   text-align: center;
@@ -45,13 +47,17 @@ export const Main = styled.div`
   padding-top: 10%;
 `
 
-const FacebookStyle = styled(FacebookLogin)`
-  padding: 8px;
-`;
+const Actions = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`
 
 const Login: React.FunctionComponent<{}> = () => {
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false)
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -62,7 +68,7 @@ const Login: React.FunctionComponent<{}> = () => {
 
   const onSubmit = () => {
     if (!username || !password) return;
-    dispatch(login(username, password)).then(() => {
+    dispatch(login(username, password, rememberMe)).then(() => {
       navigate("/");
     });
   }
@@ -70,7 +76,7 @@ const Login: React.FunctionComponent<{}> = () => {
   const responseGoogle = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
-    console.log("Go response :>> ", response);
+    console.log("Google response :>> ", response);
     if ("profileObj" in response) {
       const { givenName, imageUrl } = response.profileObj;
       dispatch(
@@ -129,27 +135,29 @@ const Login: React.FunctionComponent<{}> = () => {
           />
           <div className="actions">
             <label>
-              <input type="checkbox" />
+              <input type="checkbox" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} />
               Remember me
             </label>
             <Button onClick={onSubmit}>Sign in</Button>
           </div>
         </FormStyle>
-        <div>
+        <Actions>
           {process.env.REACT_APP_FACEBOOK_ID && (
-            <FacebookStyle
+            <FacebookLogin
               appId={process.env.REACT_APP_FACEBOOK_ID}
               autoLoad={true}
               fields="name,email,picture"
               scope="public_profile,email,user_friends"
               callback={responseFacebook}
+              cssClass="facebook-button-class"
               icon="fa-facebook"
             />
           )}
           {process.env.REACT_APP_GOOGLE_CLIENT_ID && (
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-              buttonText="Login"
+              buttonText="Login with Google"
+              className="google-button-class"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
@@ -159,7 +167,7 @@ const Login: React.FunctionComponent<{}> = () => {
           <Button variant="secondary" onClick={() => navigate("/signup")}>
             Sign up
           </Button>
-        </div>
+        </Actions>
       </CardStyle>
     </Main>
   );

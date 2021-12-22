@@ -1,0 +1,23 @@
+.facebook-button-class {
+  background-color: #355BA6;
+  color: #FFF;
+  border: none;
+  min-width: 250px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.facebook-button-class > i {
+  margin-right: 10px;
+}
+
+.google-button-class {
+  min-width: 250px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.google-button-class > div {
+  margin-right: 0px !important;
+}

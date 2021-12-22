@@ -7,21 +7,6 @@ import { useDispatch } from "react-redux";
 import { createPost } from "../store/actions/createPost";
 import { AppDispatch } from '../store/actions/login';
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-  overlay: {
-    background: "rgba(0,0,0,.7)",
-    zIndex: "1000"
-  }
-};
-
 const DropStyle = styled.div`
   display: flex;
   align-items: center;
@@ -36,14 +21,15 @@ const DropStyle = styled.div`
 `;
 
 const ModalHeaderStyle = styled.h3`
-`
+  text-align: center;
+`;
 
 const ModalBodyStyle = styled.div`
   display: flex;
   justify-content: space-between;
 
   .image-container {
-    max-width:200px;
+    max-width: 20vw;
     img {
       width: 100%;
     }
@@ -54,20 +40,42 @@ const ModalBodyStyle = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
+  textarea {
+    min-width: 20vw;
+    height: 30vh;
+    margin-bottom: 10px;
+    margin-left: 20px;
+  }
 `;
 
-const CreatePost: React.FunctionComponent<{}> = () => {
+const CreatePost: React.FunctionComponent<{ theme: string | Function }> = ({ theme }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState("");
   const dispatch: AppDispatch = useDispatch();
 
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: theme === "light" ? "#FFF" : "#423F3E",
+    },
+    overlay: {
+      background: "rgba(0,0,0,.7)",
+      zIndex: "1000",
+    },
+  };
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
     setModalIsOpen(true);
   }, []);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
-  
+
   useEffect(() => {
     Modal.setAppElement("body");
   }, []);
@@ -76,9 +84,9 @@ const CreatePost: React.FunctionComponent<{}> = () => {
     setFile(null);
     setModalIsOpen(false);
   };
-  
+
   const handleCreatePost = () => {
-    if(file && description) {
+    if (file && description) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         dispatch(createPost(event.target.result, description)).then(() => {
@@ -87,7 +95,7 @@ const CreatePost: React.FunctionComponent<{}> = () => {
       };
       reader.readAsDataURL(file);
     }
-  }
+  };
   return (
     <div>
       <div {...getRootProps()}>

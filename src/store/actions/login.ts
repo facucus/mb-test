@@ -25,19 +25,19 @@ export type LoginAction = ReturnType<
   typeof userLogin | typeof userLoginSuccess | typeof userLoginError
 >;
 
-export const login = (username: string, password: string) => {
+export const login = (username: string, password: string, rememberMe: boolean = false) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     dispatch(userLogin());
-    console.log(`here`)
     try {
       const res = await axios.post("/login", {
         username,
         password
       });
-
-      storage.set("is-authenticated", { isAuthenticated: true, ...res.data });
+      if(rememberMe) {
+        storage.set("is-authenticated", { isAuthenticated: true, ...res.data });
+      }
+      
       dispatch(userLoginSuccess(res.data));
-      console.log(`res.data`, res.data);
       return res.data;
     } catch (error) {
       dispatch(userLoginError(error));
@@ -54,7 +54,7 @@ export const signup = (username: string, password: string, confirmPassword: stri
         password,
         confirmPassword,
       });
-      storage.set("is-authenticated", { isAuthenticated: true, ...res.data });
+
       dispatch(userLoginSuccess(res.data));
       return res.data;
     } catch (error) {
