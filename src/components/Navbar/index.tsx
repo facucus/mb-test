@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
-import Toggle from "../components/Toggle";
-import Input from "./Input";
-import defaultUserImg from "../imgs/default-user.jpeg";
-import { AppState } from "../store/reducers";
+import Toggle from "../../components/Toggle";
+import Input from "../Input";
+import defaultUserImg from "../../imgs/default-user.jpeg";
+import { AppState } from "../../store/reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { clearPosts, getPosts } from "../store/actions/posts";
-import CreatePost from "./CreatePost";
+import { clearPosts, getPosts } from "../../store/actions/posts";
+import CreatePost from "../CreatePost";
 
 interface NavbarPros {
   themeToToggle: string;
@@ -55,29 +55,29 @@ const Navbar: React.FunctionComponent<NavbarPros> = ({
     }
   };
 
+  if(!loginData.isAuthenticated) return null;
+
   return (
-    <NavbarStyle>
+    <NavbarStyle data-testid="navbar">
       <Toggle toggleTheme={onThemeToggler} themeToToggle={themeToToggle} />
-      {loginData.isAuthenticated && <CreatePost />}
-      {loginData.isAuthenticated && (
-        <div>
-          <div className="user-info">
-            <img src={loginData.photoUrl || defaultUserImg} alt="user profile" />{" "}
-            <span>{loginData.username}</span>
-          </div>
-          <form onSubmit={handleSearch}>
-            <Input
-              id="search"
-              type="text"
-              placeholder="Search posts"
-              value={search}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setSearch(e.target.value)
-              }
-            />
-          </form>
+      <CreatePost />
+      <div>
+        <div className="user-info">
+          <img src={loginData.photoUrl || defaultUserImg} alt="user profile" />{" "}
+          <span>{loginData.username}</span>
         </div>
-      )}
+        <form onSubmit={handleSearch}>
+          <Input
+            id="search"
+            type="text"
+            placeholder="Search posts"
+            value={search}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
+          />
+        </form>
+      </div>
     </NavbarStyle>
   );
 };

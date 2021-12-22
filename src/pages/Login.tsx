@@ -70,7 +70,6 @@ const Login: React.FunctionComponent<{}> = () => {
   const responseGoogle = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
-    console.log(`response`, response)
     if ("profileObj" in response) {
       const { givenName, imageUrl } = response.profileObj;
       dispatch(
@@ -85,7 +84,6 @@ const Login: React.FunctionComponent<{}> = () => {
   };
 
   const responseFacebook = (response: ReactFacebookLoginInfo) => {
-    console.log(response);
     if (response.name && response.picture) {
       dispatch(
         userLoginSuccess({

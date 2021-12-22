@@ -2,7 +2,6 @@ import { AnyAction, Dispatch } from "redux";
 import axios from "axios";
 import * as types from "../types";
 import { typedAction } from "../../utils/typedAction";
-import * as storage from "../../utils/storage";
 import { Post } from '../../mocks/handlers';
 
 export interface LoginResponse {
@@ -10,12 +9,12 @@ export interface LoginResponse {
   photoUrl?: string;
 }
 
-const creatingPost = () => typedAction(types.CREATING_POST);
+export const creatingPost = () => typedAction(types.CREATING_POST);
 
-const creatingPostSuccess = (payload: Post) =>
+export const creatingPostSuccess = (payload: Post) =>
   typedAction(types.CREATING_POST_SUCCESS, payload);
 
-const creatingPostError = (error: any) =>
+export const creatingPostError = (error: any) =>
   typedAction(types.CREATING_POST_ERROR, error);
 
 export type CreatePostAction = ReturnType<

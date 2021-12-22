@@ -14,6 +14,7 @@ interface InputProps {
   value: string;
   type: string;
   placeholder: string;
+  dataTestid?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -22,7 +23,17 @@ const Input: React.FunctionComponent<InputProps> = ({
   type = "text",
   placeholder = "Enter text",
   value,
+  dataTestid = "input",
   onChange,
-}) => <InputStyle id={id} type={type} placeholder={placeholder} value={value} onChange={onChange} />;
+}) => (
+  <InputStyle
+    data-testid={dataTestid}
+    id={id}
+    type={type}
+    placeholder={placeholder}
+    value={value}
+    onChange={onChange}
+  />
+);
 
 export default Input;

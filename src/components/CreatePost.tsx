@@ -63,7 +63,6 @@ const CreatePost: React.FunctionComponent<{}> = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(`acceptedFiles`, acceptedFiles);
     setFile(acceptedFiles[0]);
     setModalIsOpen(true);
   }, []);

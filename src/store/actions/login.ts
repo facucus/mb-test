@@ -13,12 +13,12 @@ export interface LoginResponse {
 
 export type AppDispatch = ThunkDispatch<any, any, AnyAction>; 
 
-const userLogin = () => typedAction(types.USER_LOGIN);
+export const userLogin = () => typedAction(types.USER_LOGIN);
 
 export const userLoginSuccess = (payload: LoginResponse) =>
   typedAction(types.USER_LOGIN_SUCCESS, payload);
 
-const userLoginError = (error: any) =>
+export const userLoginError = (error: any) =>
   typedAction(types.USER_LOGIN_ERROR, error);
 
 export type LoginAction = ReturnType<
@@ -28,6 +28,7 @@ export type LoginAction = ReturnType<
 export const login = (username: string, password: string) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     dispatch(userLogin());
+    console.log(`here`)
     try {
       const res = await axios.post("/login", {
         username,
@@ -36,6 +37,7 @@ export const login = (username: string, password: string) => {
 
       storage.set("is-authenticated", { isAuthenticated: true, ...res.data });
       dispatch(userLoginSuccess(res.data));
+      console.log(`res.data`, res.data);
       return res.data;
     } catch (error) {
       dispatch(userLoginError(error));
@@ -52,7 +54,6 @@ export const signup = (username: string, password: string, confirmPassword: stri
         password,
         confirmPassword,
       });
-
       storage.set("is-authenticated", { isAuthenticated: true, ...res.data });
       dispatch(userLoginSuccess(res.data));
       return res.data;
