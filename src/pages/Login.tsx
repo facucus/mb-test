@@ -70,6 +70,7 @@ const Login: React.FunctionComponent<{}> = () => {
   const responseGoogle = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
+    console.log("Go response :>> ", response);
     if ("profileObj" in response) {
       const { givenName, imageUrl } = response.profileObj;
       dispatch(
