@@ -13,8 +13,8 @@ const props = {
 
 test("Should render the card with all props", () => {
   renderWithRedux(<Card {...props} />);
-  const image = screen.getAllByAltText(/post pic/)[0];
-  expect(image).toBeInTheDocument();
+  const imageContainer = screen.getByTestId("image-container");
+  expect(imageContainer).toBeInTheDocument();
   const datetext = screen.getByText("08/20/2021");
   expect(datetext).toBeInTheDocument();
   const likesCount = screen.getByText(/2 likes/);

@@ -16,10 +16,6 @@ const Signup: React.FunctionComponent<{}> = () => {
 
   const handleSubmitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    onSubmit();
-  };
-
-  const onSubmit = () => {
     if (!username || !password || password !== confirmPassword) return;
     dispatch(signup(username, password, confirmPassword)).then(() => {
       navigate("/");
@@ -39,6 +35,8 @@ const Signup: React.FunctionComponent<{}> = () => {
         return;
     }
   };
+
+  const isDisabled = !username || !password || password !== confirmPassword;
 
   return (
     <Main>
@@ -70,7 +68,9 @@ const Signup: React.FunctionComponent<{}> = () => {
             onChange={handleChange}
           />
           <div className="actions reverse">
-            <Button onClick={onSubmit}>Sign Up</Button>
+            <Button type="submit" isDisabled={isDisabled}>
+              Sign Up
+            </Button>
           </div>
         </FormStyle>
       </CardStyle>

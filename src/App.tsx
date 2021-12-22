@@ -2,6 +2,8 @@ import React, {useEffect} from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { GlobalStyles } from "./utils/GlobalStyles";
 import { lightTheme, darkTheme } from "./utils/themes";
@@ -38,6 +40,7 @@ function App() {
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
+      <ToastContainer/>
       <div>
         <Navbar themeToToggle={theme === "light" ? "Dark" : "Light"} onThemeToggler={themeToggler} />
         <Routes>

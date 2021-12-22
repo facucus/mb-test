@@ -14,6 +14,7 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 
 import "./social-buttons.css";
+import { AppState } from "../store/reducers";
 
 export const MainTitle = styled.h1`
   color: ${({ theme }) => theme.titleColor};
@@ -60,18 +61,15 @@ const Login: React.FunctionComponent<{}> = () => {
   const [rememberMe, setRememberMe] = useState(false)
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const handleSubmitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    onSubmit();
-  };
-
-  const onSubmit = () => {
+    console.log('Here :>> ');
     if (!username || !password) return;
     dispatch(login(username, password, rememberMe)).then(() => {
       navigate("/");
     });
-  }
+  };
 
   const responseGoogle = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -135,10 +133,16 @@ const Login: React.FunctionComponent<{}> = () => {
           />
           <div className="actions">
             <label>
-              <input type="checkbox" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} />
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+              />
               Remember me
             </label>
-            <Button onClick={onSubmit}>Sign in</Button>
+            <Button type="submit" isDisabled={!username || !password}>
+              Sign in
+            </Button>
           </div>
         </FormStyle>
         <Actions>

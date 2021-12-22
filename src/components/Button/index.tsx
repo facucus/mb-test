@@ -1,16 +1,24 @@
 import styled from "styled-components";
 
 interface ButtonProps {
+  type?: string;
   variant?: string;
-  onClick: () => void;
+  isDisabled?: boolean;
+  onClick?: () => void;
 }
 
 const ButtonStyle = styled.button<ButtonProps>`
-  cursor: pointer;
-  background-color: ${({ variant, theme }) =>
-    variant === "primary" ? theme.button.primaryBg : theme.button.secondaryBg};
-  color: ${({ variant, theme }) =>
-    variant === "primary"
+  cursor: ${({ isDisabled }) => isDisabled ? "not-allowed" : "pointer"};
+  background-color: ${({ variant, theme, isDisabled }) =>
+    isDisabled
+      ? theme.button.disabledBg
+      : variant === "primary"
+      ? theme.button.primaryBg
+      : theme.button.secondaryBg};
+  color: ${({ variant, theme, isDisabled }) =>
+    isDisabled
+      ? theme.button.disabledColor
+      : variant === "primary"
       ? theme.button.primaryText
       : theme.button.secondaryText};
   border: ${({ variant, theme }) =>
@@ -24,9 +32,10 @@ const ButtonStyle = styled.button<ButtonProps>`
 const Button: React.FunctionComponent<ButtonProps> = ({
   children,
   variant = "primary",
+  isDisabled,
   onClick,
 }) => (
-  <ButtonStyle variant={variant} onClick={onClick}>
+  <ButtonStyle isDisabled={isDisabled} variant={variant} onClick={onClick}>
     {children}
   </ButtonStyle>
 );

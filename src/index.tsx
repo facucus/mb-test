@@ -9,7 +9,7 @@ import { initialPosts } from "./mocks/db";
 import * as storage from "./utils/storage"
 import store from './store';
 
-worker.start();
+worker.start({ onUnhandledRequest: "bypass" });
 
 const db = storage.get("db");
 

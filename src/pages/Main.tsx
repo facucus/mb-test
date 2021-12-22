@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useCallback} from "react";
+import React, {useRef, useCallback} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {getPosts} from "../store/actions/posts"
@@ -7,6 +7,7 @@ import Card from "../components/Card";
 import Grid from "../components/Grid";
 import { AppState } from "../store/reducers";
 import Spinner from "../components/Spinner";
+import useEffectOnce from "../hooks/useEffectOnce";
 
 const Main: React.FunctionComponent<{}> = () => {
   const postsState = useSelector((state: AppState) => state.posts);
@@ -32,13 +33,21 @@ const Main: React.FunctionComponent<{}> = () => {
   );
 
 
-  
-  useEffect(() => {
+  useEffectOnce(() => {
     if (!postsState.posts.length && !postsState.isLoading) {
       dispatch(getPosts());
     }
-  }, [postsState.posts.length,postsState.isLoading, dispatch]);
+  })
+  // useEffect(() => {
+  //   if (!postsState.posts.length && !postsState.isLoading) {
+  //     dispatch(getPosts());
+  //   }
+  // }, [postsState.posts.length,postsState.isLoading, dispatch]);
   
+  if(!postsState.posts.length && !postsState.isLoading) {
+    return <h3>We couldn't found any Posts</h3>
+  }
+
   return (
     <div>
       <Grid>

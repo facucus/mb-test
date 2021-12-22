@@ -44,7 +44,6 @@ const Navbar: React.FunctionComponent<NavbarPros> = ({
   onThemeToggler,
 }) => {
   const [search, setSearch] = useState("");
-  const [showMenu, setShowMenu] = useState(false);
   const loginData = useSelector((state: AppState) => state.login);
   const dispatch = useDispatch();
   const theme = storage.get("theme");

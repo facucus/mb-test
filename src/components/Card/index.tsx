@@ -94,7 +94,7 @@ const Card: React.FunctionComponent<ICardProps> = ({
     <CardStyle ref={myref ? myref : null} padding={padding}>
       <div>
         <div className="container">
-          <ImageContainer src={imageUrl} />
+          <ImageContainer src={imageUrl} data-testid="image-container" />
           {/* <img src={imageUrl} alt="post pic" /> */}
           <div className="like-container">
             <label>

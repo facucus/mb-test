@@ -1,6 +1,7 @@
 import { AnyAction, Dispatch } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import axios from "axios";
+import { toast } from "react-toastify";
 import * as types from "../types";
 import { typedAction } from "../../utils/typedAction";
 import * as storage from "../../utils/storage";
@@ -40,6 +41,8 @@ export const login = (username: string, password: string, rememberMe: boolean = 
       dispatch(userLoginSuccess(res.data));
       return res.data;
     } catch (error) {
+      console.log(`error`, error)
+      toast("Invalid credentials", { type: "error"});
       dispatch(userLoginError(error));
     }
   };

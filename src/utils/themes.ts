@@ -5,6 +5,8 @@ type ButtonStyle = {
   secondaryBg: string;
   secondaryText: string;
   secondaryBorder: string;
+  disabledBg: string;
+  disabledColor: string;
 };
 export type ThemeType = {
   body: string;
@@ -45,12 +47,14 @@ export const lightTheme: ThemeType = {
     secondaryBg: "#FFF",
     secondaryText: "#79B4B7",
     secondaryBorder: "1px solid #79B4B7",
+    disabledBg: "rgba(0, 0, 0, 0.12)",
+    disabledColor: "#FFF",
   },
   navbarBg: "#79B4B7",
   navbarBorder: "1px solid #171010",
   navbarColor: "#FFF",
   menuBg: "#79B4B7",
-  menuBorder: "#FFF"
+  menuBorder: "#FFF",
 };
 
 export const darkTheme: ThemeType = {
@@ -72,6 +76,8 @@ export const darkTheme: ThemeType = {
     secondaryBg: "#2B2B2B",
     secondaryText: "#FFF",
     secondaryBorder: "1px solid #2B2B2B",
+    disabledBg: "rgba(0, 0, 0, 0.12)",
+    disabledColor: "#FFF",
   },
   navbarBg: "#423F3E",
   navbarBorder: "1px solid #FFF",
