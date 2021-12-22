@@ -7,6 +7,7 @@ type ButtonStyle = {
   secondaryBorder: string;
   disabledBg: string;
   disabledColor: string;
+  linkColor: string;
 };
 export type ThemeType = {
   body: string;
@@ -49,6 +50,7 @@ export const lightTheme: ThemeType = {
     secondaryBorder: "1px solid #79B4B7",
     disabledBg: "rgba(0, 0, 0, 0.12)",
     disabledColor: "#FFF",
+    linkColor: "#FFF"
   },
   navbarBg: "#79B4B7",
   navbarBorder: "1px solid #171010",
@@ -78,6 +80,7 @@ export const darkTheme: ThemeType = {
     secondaryBorder: "1px solid #2B2B2B",
     disabledBg: "rgba(0, 0, 0, 0.12)",
     disabledColor: "#FFF",
+    linkColor: "#FFF",
   },
   navbarBg: "#423F3E",
   navbarBorder: "1px solid #FFF",

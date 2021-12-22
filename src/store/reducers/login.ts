@@ -42,6 +42,8 @@ const loginReducer = (
         username: "",
         photoUrl: "",
       };
+    case types.USER_LOGOUT:
+      return initialState;
     default:
       return state;
   }

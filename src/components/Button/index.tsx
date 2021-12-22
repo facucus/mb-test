@@ -8,12 +8,14 @@ interface ButtonProps {
 }
 
 const ButtonStyle = styled.button<ButtonProps>`
-  cursor: ${({ isDisabled }) => isDisabled ? "not-allowed" : "pointer"};
+  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   background-color: ${({ variant, theme, isDisabled }) =>
     isDisabled
       ? theme.button.disabledBg
       : variant === "primary"
       ? theme.button.primaryBg
+      : variant === "link"
+      ? "transparent"
       : theme.button.secondaryBg};
   color: ${({ variant, theme, isDisabled }) =>
     isDisabled
@@ -26,7 +28,15 @@ const ButtonStyle = styled.button<ButtonProps>`
       ? theme.button.primaryBorder
       : theme.button.secondaryBorder};
   border-radius: 10px;
-  padding: 8px 16px;
+  font-size: 16px;
+  padding: ${({ variant }) => (variant === "link" ? "0" : "8px 16px")};
+
+  &:hover {
+    border-bottom: ${({ variant, theme }) =>
+      variant === "link" && `1px solid ${theme.button.linkColor}`};
+    border-radius: ${({ variant, theme }) =>
+      variant === "link" ? "0px" : "10px"};
+  }
 `;
 
 const Button: React.FunctionComponent<ButtonProps> = ({

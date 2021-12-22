@@ -36,3 +36,14 @@ test("Should return an error", () => {
   };
   expect(loginReducer(initialState, action)).toEqual(expectedResult);
 });
+
+test("Should return non authenticated user", () => {
+  const action = typedAction(types.USER_LOGOUT);
+  const initState = {
+    ...initialState,
+    isAuthenticated: true,
+    username: "test",
+    photoUrl: "test-image.jpg",
+  };
+  expect(loginReducer(initState, action)).toEqual(initialState);
+});

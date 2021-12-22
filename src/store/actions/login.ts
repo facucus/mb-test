@@ -22,6 +22,8 @@ export const userLoginSuccess = (payload: LoginResponse) =>
 export const userLoginError = (error: any) =>
   typedAction(types.USER_LOGIN_ERROR, error);
 
+export const userLogout = () => typedAction(types.USER_LOGOUT);
+
 export type LoginAction = ReturnType<
   typeof userLogin | typeof userLoginSuccess | typeof userLoginError
 >;

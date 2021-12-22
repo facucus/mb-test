@@ -22,3 +22,9 @@ test("Should return USER_LOGIN_ERROR type", () => {
     payload: "something went wrong",
   });
 });
+
+test("Should return USER_LOGOUT type", () => {
+  expect(loginActions.userLogout()).toEqual({
+    type: types.USER_LOGOUT,
+  });
+});
