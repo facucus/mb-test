@@ -9,7 +9,7 @@ export interface LoginState {
   error: any;
 }
 
-const initialState: LoginState = {
+export const initialState: LoginState = {
   isLoading: false,
   isAuthenticated: false,
   username: "",

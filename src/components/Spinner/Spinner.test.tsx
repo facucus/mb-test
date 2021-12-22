@@ -1,17 +1,16 @@
-import { renderWithRedux, screen } from "../../utils/test-utils";
-import "jest-styled-components";
+import { render, screen } from "../../utils/test-utils";
 import Spinner from ".";
 
 
 
 test("Should render the spinner", () => {
-  renderWithRedux(<Spinner show={true} />);
+  render(<Spinner show={true} />);
   const loader = screen.getByTestId("loader");
   expect(loader).toBeInTheDocument()
 });
 
 test("Should nnont render the spinner", () => {
-  renderWithRedux(<Spinner show={false} />);
+  render(<Spinner show={false} />);
   const loader = screen.queryByTestId("loader");
   expect(loader).not.toBeInTheDocument();
 });

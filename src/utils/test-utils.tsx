@@ -1,11 +1,13 @@
 import React, { ReactElement } from "react";
 import { render as rtlRender } from "@testing-library/react";
-import { createStore, Store } from "redux";
+import { applyMiddleware, createStore, Store } from "redux";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
+import { BrowserRouter } from "react-router-dom";
 
 import reducer, { AppState } from "../store/reducers";
 import { lightTheme } from "./themes";
+import thunk from "redux-thunk";
 
 interface Options {
   initialState?: AppState;
@@ -20,14 +22,16 @@ function renderWithRedux(
   ui: ReactElement,
   {
     initialState,
-    store = createStore(reducer, initialState),
+    store = createStore(reducer, initialState, applyMiddleware(thunk)),
     ...renderOptions
   }: Options = {}
 ) {
   function Wrapper({ children }: WrapperProps) {
     return (
       <Provider store={store}>
-        <ThemeProvider theme={lightTheme}>{children}</ThemeProvider>
+        <BrowserRouter>
+          <ThemeProvider theme={lightTheme}>{children}</ThemeProvider>
+        </BrowserRouter>
       </Provider>
     );
   }

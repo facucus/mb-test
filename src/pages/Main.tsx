@@ -12,7 +12,6 @@ const Main: React.FunctionComponent<{}> = () => {
   const postsState = useSelector((state: AppState) => state.posts);
   const dispatch = useDispatch();
   const observer = useRef<IntersectionObserver>();
-  
   const lastPostRef = useCallback(
     (node: Element) => {
       if (postsState.isLoading) return;

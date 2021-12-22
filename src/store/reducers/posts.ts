@@ -15,7 +15,7 @@ export interface PostsState {
   newPost: NewPost;
 }
 
-const initialState: PostsState = {
+export const initialState: PostsState = {
   isLoading: false,
   error: null,
   posts: [],

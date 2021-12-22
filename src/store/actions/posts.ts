@@ -9,23 +9,23 @@ export interface PostsResponse {
   next: string | null;
 }
 
-const fetchingPosts = () => typedAction(types.FETCHING_POSTS);
+export const fetchingPosts = () => typedAction(types.FETCHING_POSTS);
 
-const fetchingPostsSuccess = (payload: PostsResponse) =>
+export const fetchingPostsSuccess = (payload: PostsResponse) =>
   typedAction(types.FETCHING_POSTS_SUCCESS, payload);
 
-const fetchingPostsError = (error: any) =>
+export const fetchingPostsError = (error: any) =>
   typedAction(types.FETCHING_POSTS_ERROR, error);
 
-const searchingPosts = () => typedAction(types.SEARCHING_POSTS);
-const searchingPostSuccess = (payload: PostsResponse) =>
+export const searchingPosts = () => typedAction(types.SEARCHING_POSTS);
+export const searchingPostSuccess = (payload: PostsResponse) =>
   typedAction(types.SEARCHING_POSTS_SUCCESS, payload);
 
 export const clearPosts = () => typedAction(types.CLEAR_POSTS);
 
-const likingPost = () => typedAction(types.LIKE_POST);
-const likingPostSuccess = (payload: Post) => typedAction(types.LIKE_POST_SUCCESS, payload);
-const likingPostError = (error: any) => typedAction(types.LIKE_POST_ERROR, error);
+export const likingPost = () => typedAction(types.LIKE_POST);
+export const likingPostSuccess = (payload: Post) => typedAction(types.LIKE_POST_SUCCESS, payload);
+export const likingPostError = (error: any) => typedAction(types.LIKE_POST_ERROR, error);
 
 export type PostsAction = ReturnType<
   | typeof fetchingPosts

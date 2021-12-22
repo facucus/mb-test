@@ -21,7 +21,6 @@ const Signup: React.FunctionComponent<{}> = () => {
 
   const onSubmit = () => {
     if (!username || !password || password !== confirmPassword) return;
-    console.log("signup");
     dispatch(signup(username, password, confirmPassword)).then(() => {
       navigate("/");
     });
@@ -48,6 +47,7 @@ const Signup: React.FunctionComponent<{}> = () => {
         <FormStyle onSubmit={handleSubmitForm}>
           <Input
             id="username"
+            dataTestid="username"
             type="text"
             placeholder="Enter username"
             value={username}
@@ -55,6 +55,7 @@ const Signup: React.FunctionComponent<{}> = () => {
           />
           <Input
             id="password"
+            dataTestid="password"
             type="password"
             placeholder="Enter password"
             value={password}
@@ -62,6 +63,7 @@ const Signup: React.FunctionComponent<{}> = () => {
           />
           <Input
             id="confirmPassword"
+            dataTestid="confirmPassword"
             type="password"
             placeholder="Confirm password"
             value={confirmPassword}
