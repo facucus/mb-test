@@ -43,7 +43,6 @@ export const login = (username: string, password: string, rememberMe: boolean = 
       dispatch(userLoginSuccess(res.data));
       return res.data;
     } catch (error) {
-      console.log(`error`, error)
       toast("Invalid credentials", { type: "error"});
       dispatch(userLoginError(error));
     }

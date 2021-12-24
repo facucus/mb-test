@@ -64,7 +64,6 @@ const Login: React.FunctionComponent<{}> = () => {
 
   const handleSubmitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log('Here :>> ');
     if (!username || !password) return;
     dispatch(login(username, password, rememberMe)).then(() => {
       navigate("/");
@@ -74,7 +73,6 @@ const Login: React.FunctionComponent<{}> = () => {
   const responseGoogle = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
-    console.log("Google response :>> ", response);
     if ("profileObj" in response) {
       const { givenName, imageUrl } = response.profileObj;
       dispatch(
@@ -122,6 +120,7 @@ const Login: React.FunctionComponent<{}> = () => {
             type="text"
             placeholder="Enter username"
             value={username}
+            error={!username ? "You must enter a username" : ""}
             onChange={handleChange}
           />
           <Input
@@ -129,6 +128,7 @@ const Login: React.FunctionComponent<{}> = () => {
             type="password"
             placeholder="Enter password"
             value={password}
+            error={!password ? "You must enter a password" : ""}
             onChange={handleChange}
           />
           <div className="actions">

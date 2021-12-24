@@ -49,6 +49,7 @@ const Signup: React.FunctionComponent<{}> = () => {
             type="text"
             placeholder="Enter username"
             value={username}
+            error={!username ? "You must enter a username" : ""}
             onChange={handleChange}
           />
           <Input
@@ -57,6 +58,7 @@ const Signup: React.FunctionComponent<{}> = () => {
             type="password"
             placeholder="Enter password"
             value={password}
+            error={!password ? "You must enter a password" : ""}
             onChange={handleChange}
           />
           <Input
@@ -65,6 +67,9 @@ const Signup: React.FunctionComponent<{}> = () => {
             type="password"
             placeholder="Confirm password"
             value={confirmPassword}
+            error={
+              password !== confirmPassword ? "Passwords doesn't match" : ""
+            }
             onChange={handleChange}
           />
           <div className="actions reverse">

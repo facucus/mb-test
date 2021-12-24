@@ -6,6 +6,7 @@ import Button from "./Button";
 import { useDispatch } from "react-redux";
 import { createPost } from "../store/actions/createPost";
 import { AppDispatch } from '../store/actions/login';
+import { toast } from "react-toastify";
 
 const DropStyle = styled.div`
   display: flex;
@@ -72,13 +73,26 @@ const CreatePost: React.FunctionComponent<{ theme: string | Function }> = ({ the
   };
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
-    setModalIsOpen(true);
   }, []);
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
+  const { getRootProps, getInputProps, fileRejections, acceptedFiles, ...props }: any = useDropzone({
+    onDrop,
+    accept: "image/jpg, image/jpeg,image/png",
+    maxSize: 3000000,
+  });
   useEffect(() => {
     Modal.setAppElement("body");
   }, []);
+
+  useEffect(() => {
+    if (!fileRejections.length && acceptedFiles[0]) {
+      setModalIsOpen(true);
+    }
+    fileRejections.forEach(({ errors }: any) => {
+      errors.forEach((e: any) => {
+        toast(e.message, { type: "error" });
+      });
+    });
+  }, [fileRejections, acceptedFiles]);
 
   const handleClose = () => {
     setFile(null);
