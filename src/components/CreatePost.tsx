@@ -74,7 +74,7 @@ const CreatePost: React.FunctionComponent<{ theme: string | Function }> = ({ the
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
   }, []);
-  const { getRootProps, getInputProps, fileRejections, acceptedFiles, ...props }: any = useDropzone({
+  const { getRootProps, getInputProps, fileRejections, acceptedFiles }: any = useDropzone({
     onDrop,
     accept: "image/jpg, image/jpeg,image/png",
     maxSize: 3000000,

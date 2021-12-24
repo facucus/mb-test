@@ -14,7 +14,6 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 
 import "./social-buttons.css";
-import { AppState } from "../store/reducers";
 
 export const MainTitle = styled.h1`
   color: ${({ theme }) => theme.titleColor};

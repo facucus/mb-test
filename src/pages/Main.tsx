@@ -1,5 +1,6 @@
 import React, {useRef, useCallback} from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from 'styled-components';
 
 import {getPosts} from "../store/actions/posts"
 import { Post } from '../mocks/handlers';
@@ -8,6 +9,10 @@ import Grid from "../components/Grid";
 import { AppState } from "../store/reducers";
 import Spinner from "../components/Spinner";
 import useEffectOnce from "../hooks/useEffectOnce";
+
+const NotFoundStyle = styled.h3`
+  text-align: center;
+`
 
 const Main: React.FunctionComponent<{}> = () => {
   const postsState = useSelector((state: AppState) => state.posts);
@@ -45,7 +50,7 @@ const Main: React.FunctionComponent<{}> = () => {
   // }, [postsState.posts.length,postsState.isLoading, dispatch]);
   
   if(!postsState.posts.length && !postsState.isLoading) {
-    return <h3>We couldn't found any Posts</h3>
+    return <NotFoundStyle>We couldn't found any Posts</NotFoundStyle>
   }
 
   return (

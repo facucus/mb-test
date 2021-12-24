@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar";
 import RequireAuth from "./components/RequireAuth";
 import * as storage from "./utils/storage";
 import { userLoginSuccess } from "./store/actions/login";
+import Toggle from "./components/Toggle";
 
 
 function App() {
@@ -40,9 +41,13 @@ function App() {
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
-      <ToastContainer/>
+      <ToastContainer />
       <div>
-        <Navbar themeToToggle={theme === "light" ? "Dark" : "Light"} onThemeToggler={themeToggler} />
+        <Toggle
+          toggleTheme={themeToggler}
+          themeToToggle={theme === "light" ? "Dark" : "Light"}
+        />
+        <Navbar />
         <Routes>
           <Route
             path="/"

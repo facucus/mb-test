@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
-import Toggle from "../../components/Toggle";
 import Input from "../Input";
 import defaultUserImg from "../../imgs/default-user.jpeg";
 import { AppState } from "../../store/reducers";
@@ -11,12 +10,7 @@ import {userLogout} from "../../store/actions/login";
 import CreatePost from "../CreatePost";
 import * as storage from "../../utils/storage"
 import { useNavigate } from "react-router-dom";
-import Button from "../Button";
 import LinkButton from "../LinkButton";
-interface NavbarPros {
-  themeToToggle: string;
-  onThemeToggler: any;
-}
 
 const NavbarStyle = styled.nav`
   display: flex;
@@ -46,11 +40,19 @@ const NavbarStyle = styled.nav`
   }
 `;
 
+const FormStyle = styled.form`
+  position: relative;
+  display: flex;
+  min-width: 180px;
 
-const Navbar: React.FunctionComponent<NavbarPros> = ({
-  themeToToggle,
-  onThemeToggler,
-}) => {
+  .link-container {
+    position: absolute;
+    z-index: 10;
+    left: -45px;
+  }
+`;
+
+const Navbar: React.FunctionComponent<{}> = () => {
   const [search, setSearch] = useState("");
   const loginData = useSelector((state: AppState) => state.login);
   const dispatch = useDispatch();
@@ -59,12 +61,13 @@ const Navbar: React.FunctionComponent<NavbarPros> = ({
   const theme = storage.get("theme");
 
 
-  const handleSearch = (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(clearPosts())
     if (search) {
       dispatch(getPosts(`/posts?query=${search}`));
+      setSearch("");
     } else {
+      dispatch(clearPosts());
       dispatch(getPosts());
     }
   };
@@ -81,14 +84,13 @@ const Navbar: React.FunctionComponent<NavbarPros> = ({
   return (
     <NavbarStyle data-testid="navbar">
       <CreatePost theme={theme} />
-      <Toggle toggleTheme={onThemeToggler} themeToToggle={themeToToggle} />
       <div>
         <div className="user-info">
           <img src={loginData.photoUrl || defaultUserImg} alt="user profile" />{" "}
           <span>{loginData.username},</span>
           <LinkButton onClick={handleLogout}>logout</LinkButton>
         </div>
-        <form onSubmit={handleSearch}>
+        <FormStyle onSubmit={handleSubmit}>
           <Input
             id="search"
             type="text"
@@ -98,7 +100,7 @@ const Navbar: React.FunctionComponent<NavbarPros> = ({
               setSearch(e.target.value)
             }
           />
-        </form>
+        </FormStyle>
       </div>
     </NavbarStyle>
   );
