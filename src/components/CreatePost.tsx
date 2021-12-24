@@ -89,7 +89,8 @@ const CreatePost: React.FunctionComponent<{ theme: string | Function }> = ({ the
     }
     fileRejections.forEach(({ errors }: any) => {
       errors.forEach((e: any) => {
-        toast(e.message, { type: "error" });
+        const errMsg = e.code === "file-too-large" ? "File is larger than 3MB" : e.message;
+        toast(errMsg, { type: "error" });
       });
     });
   }, [fileRejections, acceptedFiles]);
